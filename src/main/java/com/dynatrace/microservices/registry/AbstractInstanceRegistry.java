@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
+
+import org.apache.commons.logging.LogFactory;
 
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
+import com.dynatrace.microservices.utils.Strings;
 
 public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>> implements InstanceRegistry<K> {
 
@@ -18,9 +22,9 @@ public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>>
 			V value = entries.get(key);
 			if (value == null) {
 				value = newValue();
-				value.register(instance);
 				entries.put(key, value);
 			}
+			value.register(instance);
 		}
 	}
 	
@@ -109,6 +113,18 @@ public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>>
 				return null;
 			}
 			return value.unregister(instance);
+		}
+	}
+	
+	@Override
+	public void dump(int indent) {
+		synchronized (entries) {
+			Set<K> keys = entries.keySet();
+			for (K key : keys) {
+				LogFactory.getLog(getClass().getName()).info(Strings.indent(indent) + key);
+				V value = entries.get(key);
+				value.dump(indent + 2);
+			}
 		}
 	}
 	

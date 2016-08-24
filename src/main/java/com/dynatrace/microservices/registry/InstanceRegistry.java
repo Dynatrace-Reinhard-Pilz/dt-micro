@@ -12,4 +12,5 @@ public interface InstanceRegistry<K> {
 	Collection<ServiceInstance> getInstances();
 	ServiceInstance unregister(String instanceId);
 	ServiceInstance get(String instanceId);
+	void dump(int indent);
 }

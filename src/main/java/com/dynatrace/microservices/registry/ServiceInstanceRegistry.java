@@ -3,16 +3,22 @@ package com.dynatrace.microservices.registry;
 import java.util.Collection;
 import java.util.Objects;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
 
 public class ServiceInstanceRegistry {
+	
+	private static final Log LOGGER = LogFactory.getLog(ServiceInstanceRegistry.class.getName());
 
 	private final RegistryByServiceId registry = new RegistryByServiceId();
 	
 	public void register(ServiceInstance instance) {
 		Objects.requireNonNull(instance);
 		registry.register(instance);
-		System.out.println(instance + " registered");
+		LOGGER.info(instance + " registered");
+//		registry.dump(0);
 	}
 	
 	public ServiceInstance unregister(String instanceId) {

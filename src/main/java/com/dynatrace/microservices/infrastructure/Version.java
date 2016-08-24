@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "version")
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Version implements Comparable<Version> {
+	
+	
+	public static final Version DEFAULT = new Version(1, 0, 0, 0);
 
 	@XmlAttribute(name = "major")
 	private int major = 0;

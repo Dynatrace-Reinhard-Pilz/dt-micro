@@ -1,10 +1,11 @@
-package com.dynatrace.microservices.remoting;
+package com.dynatrace.microservices.remoting.registry;
 
 import org.springframework.web.client.RestClientException;
 
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
 import com.dynatrace.microservices.registry.DefaultServiceInstance;
 import com.dynatrace.microservices.registry.DefaultServiceQuery;
+import com.dynatrace.microservices.remoting.ExceptionHandler;
 
 public class LocalRemoteRegistryService implements RegistryService {
 	

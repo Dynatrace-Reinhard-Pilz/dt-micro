@@ -5,9 +5,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
+import com.dynatrace.microservices.utils.Strings;
 
 public class ServiceInstances extends AbstractInstanceRegistry<String, ServiceInstances.ServiceInstanceWrapper> {
+	
+	private static final Log LOGGER = LogFactory.getLog(ServiceInstances.class.getName());
 
 	@Override
 	public Class<ServiceInstances.ServiceInstanceWrapper> valueType() {
@@ -133,6 +139,13 @@ public class ServiceInstances extends AbstractInstanceRegistry<String, ServiceIn
 			ArrayList<ServiceInstance> list = new ArrayList<ServiceInstance>(1);
 			list.add(instance);
 			return list;
+		}
+
+		@Override
+		public void dump(int indent) {
+			if (instance != null) {
+				LOGGER.info(Strings.indent(indent) + instance.toString());
+			}
 		}
 		
 	}

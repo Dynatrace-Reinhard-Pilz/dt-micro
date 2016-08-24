@@ -2,6 +2,8 @@ package com.dynatrace.microservices.processes;
 
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 import com.dynatrace.microservices.utils.OS;
@@ -30,21 +32,25 @@ public class ClassPath {
 		this.parts = parts.toArray(new String[parts.size()]);
 	}
 	
-	public String toJvmArg() {
+	public Collection<String> toJvmArg() {
 		if (parts == null) {
-			return "";
+			return Collections.emptyList();
 		}
 		if (parts.length == 0) {
-			return "";
+			return Collections.emptyList();
 		}
+		ArrayList<String> result = new ArrayList<String>();
+		result.add("-classpath");
 		StringBuilder sb = new StringBuilder();
-		sb.append(" -classpath ");
-		sb.append('"').append(parts[0]).append('"');
+		sb.append(parts[0]);
+		//sb.append('"').append(parts[0]).append('"');
 		String delim = OS.delim();
 		for (int i = 1; i < parts.length; i++) {
-			sb.append(delim).append('"').append(parts[i]).append('"');
+			// sb.append(delim).append('"').append(parts[i]).append('"');
+			sb.append(delim).append(parts[i]);
 		}
-		return sb.toString();
+		result.add(sb.toString());
+		return result;
 	}
 	
 }

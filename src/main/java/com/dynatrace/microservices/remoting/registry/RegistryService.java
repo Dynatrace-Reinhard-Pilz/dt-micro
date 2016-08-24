@@ -1,4 +1,4 @@
-package com.dynatrace.microservices.remoting;
+package com.dynatrace.microservices.remoting.registry;
 
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
 import com.dynatrace.microservices.registry.DefaultServiceInstance;

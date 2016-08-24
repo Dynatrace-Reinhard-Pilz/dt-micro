@@ -1,6 +1,9 @@
 package com.dynatrace.microservices.processes;
 
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class InputArguments {
@@ -12,14 +15,14 @@ public class InputArguments {
 		this.args = args.toArray(new String[args.size()]);
 	}
 	
-	public String toJvmArg() {
+	public Collection<String> toJvmArg() {
 		if (args == null) {
-			return "";
+			return Collections.emptyList();
 		}
 		if (args.length == 0) {
-			return "";
+			return Collections.emptyList();
 		}
-		StringBuilder sb = new StringBuilder();
+		ArrayList<String> result = new ArrayList<String>();
 		for (String arg : args) {
 			if (arg.startsWith("-Dcom.sun.management.jmxremote.port")) {
 				continue;
@@ -27,8 +30,8 @@ public class InputArguments {
 			if (arg.startsWith("-agentlib")) {
 				continue;
 			}
-			sb.append(" ").append(arg);
+			result.add(arg);
 		}
-		return sb.toString();
+		return result;
 	}
 }

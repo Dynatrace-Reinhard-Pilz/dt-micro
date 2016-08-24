@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dynatrace.microservices.ServiceApplication;
+import com.dynatrace.microservices.operation.Operation;
 
 @RestController("common")
 public class CommonController {
@@ -20,6 +21,20 @@ public class CommonController {
 	@GetMapping(path = "/status")
 	public Status getStatus() {
 		return STATUS;
+	}
+	
+	@GetMapping(path= "/${micro.service}/operation", produces="application/json")
+	public Operation getOperation() {
+		Operation root = new Operation("foo");
+		Operation remoteOperation = new Operation("foo");
+		remoteOperation.add(new Operation());
+		root.add(remoteOperation);
+		return root;
+	}
+
+	@GetMapping(path = "/${micro.service}/shutdown")
+	public String shutdown2() {
+		return shutdown();
 	}
 	
 	@GetMapping(path = "/shutdown")

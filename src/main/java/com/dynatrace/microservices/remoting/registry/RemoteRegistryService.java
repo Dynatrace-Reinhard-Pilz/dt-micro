@@ -1,4 +1,4 @@
-package com.dynatrace.microservices.remoting;
+package com.dynatrace.microservices.remoting.registry;
 
 import java.util.Objects;
 
@@ -42,7 +42,6 @@ public class RemoteRegistryService {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<DefaultServiceInstance> entity = new HttpEntity<DefaultServiceInstance>(instance, headers);
 		String url = serviceInstance.createURL("register").toString();
-		System.out.println("------- URL: " + url);
 		ResponseEntity<Success> responseInstance = REST.postForEntity(
 			url,
 			entity,

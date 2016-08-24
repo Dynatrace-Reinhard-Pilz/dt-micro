@@ -1,6 +1,8 @@
 package com.dynatrace.microservices.processes;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,12 +10,11 @@ import java.util.StringTokenizer;
 
 public class CommandLine {
 
-	private final String[] parts;
+	private final Collection<String> parts = new ArrayList<String>();
 	private final Map<String, String> properties = new HashMap<String, String>();
 	
 	public CommandLine() {
 		String commandLine = System.getProperty("sun.java.command");
-		ArrayList<String> parts = new ArrayList<String>();
 		StringTokenizer strTok = new StringTokenizer(commandLine, " ");
 		while (strTok.hasMoreTokens()) {
 			String part = strTok.nextToken().trim();
@@ -21,44 +22,45 @@ public class CommandLine {
 				parts.add(part);
 			}
 		}
-		if (parts.isEmpty()) {
-			this.parts = new String[0];
-		} else {
-			this.parts = parts.toArray(new String[parts.size()]);
+	}
+	
+	private boolean contains(String s) {
+		for (String part : parts) {
+			if (part.startsWith(s)) {
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	public void setProperty(String key, String value) {
 		Objects.requireNonNull(key);
 		Objects.requireNonNull(value);
 		properties.put(key, value);
+		if (!contains("--" + key + "=")) {
+			parts.add("--" + key + "=" + value);
+		}
 	}
 	
 	public String first() {
-		if (parts == null) {
+		if (parts.isEmpty()) {
 			return null;
 		}
-		if (parts.length == 0) {
-			return null;
-		}
-		return parts[0];
+		return parts.iterator().next();
 	}
 	
-	public String toJvmArg() {
-		if (parts == null) {
-			return "";
+	public Collection<String> toJvmArg() {
+		if (parts.isEmpty()) {
+			return Collections.emptyList();
 		}
-		if (parts.length == 0) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder();
-		if (parts[0].endsWith(".jar")) {
-			sb.append(" -jar");
+		ArrayList<String> result = new ArrayList<String>();
+		if (first().endsWith(".jar")) {
+			result.add("-jar");
 		}
 		for (String part : parts) {
-			sb.append(" ").append(propify(part));
+			result.add(propify(part));
 		}
-		return sb.toString();
+		return result;
 	}
 	
 	private String propify(String part) {

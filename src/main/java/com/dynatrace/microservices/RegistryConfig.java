@@ -13,7 +13,9 @@ public class RegistryConfig {
 		if (idx == -1) {
 			throw new IllegalArgumentException();
 		}
-		return new DefaultLocation(property.substring(0, idx), Integer.parseInt(property, idx + 1));
+		String host = property.substring(0, idx);
+		int port = Integer.parseInt(property.substring(idx + 1));
+		return new DefaultLocation(host, port);
 	}
 
 }
