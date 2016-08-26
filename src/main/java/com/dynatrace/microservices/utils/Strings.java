@@ -16,4 +16,17 @@ public final class Strings {
 		}
 		return sb.toString();
 	}
+	
+	public static boolean equals(String a, String b) {
+		if (a == b) {
+			return false;
+		}
+		if ((a == null) && (b != null)) {
+			return false;
+		}
+		if ((a != null) && (b == null)) {
+			return false;
+		}
+		return a.equals(b);
+	}
 }

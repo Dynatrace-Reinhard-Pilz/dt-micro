@@ -16,7 +16,7 @@ public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>>
 	protected final HashMap<K, V> entries = new HashMap<>();
 	
 	@Override
-	public void register(ServiceInstance instance) {
+	public boolean register(ServiceInstance instance) {
 		synchronized (entries) {
 			K key = evaluateKey(instance);
 			V value = entries.get(key);
@@ -24,7 +24,7 @@ public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>>
 				value = newValue();
 				entries.put(key, value);
 			}
-			value.register(instance);
+			return value.register(instance);
 		}
 	}
 	

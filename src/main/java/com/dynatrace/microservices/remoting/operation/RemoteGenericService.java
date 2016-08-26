@@ -13,13 +13,13 @@ import com.dynatrace.microservices.infrastructure.ServiceInstance;
 import com.dynatrace.microservices.operation.Operation;
 import com.dynatrace.microservices.operation.OperationResponse;
 
-public class RemoteOperationService {
+public class RemoteGenericService {
 	
 	private static final RestTemplate REST = new RestTemplate();
 	
 	private final ServiceInstance serviceInstance;
 	
-	public RemoteOperationService(ServiceInstance serviceInstance) {
+	public RemoteGenericService(ServiceInstance serviceInstance) {
 		Objects.requireNonNull(serviceInstance);
 		this.serviceInstance = serviceInstance;
 	}

@@ -14,16 +14,18 @@ import com.dynatrace.microservices.infrastructure.Location;
 import com.dynatrace.microservices.infrastructure.Service;
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
 
-@XmlRootElement(name = "instance")
+@XmlRootElement(name = DefaultServiceInstance.TAG)
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class DefaultServiceInstance implements ServiceInstance {
+	
+	public static final String TAG = "instance";
 
 	@XmlAttribute(name = "id")
 	private String id = null;
-	@XmlElement
-	private DefaultService service = null;
-	@XmlElement
-	private DefaultLocation location = null;
+	@XmlElement(name = DefaultService.TAG, type = DefaultService.class)
+	private Service service = null;
+	@XmlElement(name = DefaultLocation.TAG, type = DefaultLocation.class)
+	private Location location = null;
 	
 	public DefaultServiceInstance() {
 		
@@ -55,9 +57,17 @@ public final class DefaultServiceInstance implements ServiceInstance {
 	
 	@Override
 	public URL createURL(String operation) {
+		return createURL(operation, true);
+	}
+	
+	@Override
+	public URL createURL(String operation, boolean includeServiceName) {
 		Objects.requireNonNull(operation);
 		try {
-			return new URL("http", location.getHost(), location.getPort(), "/" + service.getServiceId() + "/" + operation);
+			if (includeServiceName) {
+				return new URL("http", location.getHost(), location.getPort(), "/" + service.getServiceId() + "/" + operation);
+			}
+			return new URL("http", location.getHost(), location.getPort(), "/" + operation);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
@@ -71,7 +81,7 @@ public final class DefaultServiceInstance implements ServiceInstance {
 		this.service = service;
 	}
 	
-	public void setLocation(DefaultLocation location) {
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 	

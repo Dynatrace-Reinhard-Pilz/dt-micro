@@ -17,9 +17,8 @@ import com.dynatrace.microservices.infrastructure.ServiceInstance;
 import com.dynatrace.microservices.infrastructure.Version;
 import com.dynatrace.microservices.registry.DefaultServiceQuery;
 import com.dynatrace.microservices.remoting.ExceptionHandler;
-import com.dynatrace.microservices.remoting.operation.LocalRemoteOperationService;
-import com.dynatrace.microservices.remoting.operation.RemoteOperationService;
-import com.dynatrace.microservices.remoting.registry.LocalRemoteRegistryService;
+import com.dynatrace.microservices.remoting.operation.LocalRemoteGenericService;
+import com.dynatrace.microservices.remoting.operation.RemoteGenericService;
 
 @XmlRootElement(name = "operation")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -57,7 +56,6 @@ public class Operation implements ExceptionHandler {
 	}
 	
 	public OperationResponse execute() {
-		LocalRemoteRegistryService service = ServiceApplication.registryService;
 		OperationResponse response = new OperationResponse();
 		for (Operation operation : operations) {
 			String serviceId = operation.getServiceId();
@@ -65,9 +63,9 @@ public class Operation implements ExceptionHandler {
 				executeLocal(operation);
 			} else {
 				DefaultServiceQuery query = new DefaultServiceQuery(serviceId, Version.DEFAULT);
-				ServiceInstance serviceInstance = service.lookup(query);
-				RemoteOperationService remoteOperationService = new RemoteOperationService(serviceInstance);
-				LocalRemoteOperationService operationService = new LocalRemoteOperationService(remoteOperationService, this);
+				ServiceInstance serviceInstance = ServiceApplication.getRegistryService().lookup(query);
+				RemoteGenericService remoteOperationService = new RemoteGenericService(serviceInstance);
+				LocalRemoteGenericService operationService = new LocalRemoteGenericService(remoteOperationService, this);
 				response.add(operationService.process(operation));
 			}
 		}

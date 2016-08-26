@@ -53,8 +53,12 @@ public class ServiceInstances extends AbstractInstanceRegistry<String, ServiceIn
 		}
 
 		@Override
-		public void register(ServiceInstance instance) {
-			setInstance(instance);
+		public boolean register(ServiceInstance instance) {
+			if (!ServiceInstance.equals(this.instance, instance)) {
+				setInstance(instance);
+				return true;
+			}
+			return false;
 		}
 
 		@Override

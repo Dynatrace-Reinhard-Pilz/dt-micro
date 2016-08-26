@@ -9,9 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.dynatrace.microservices.infrastructure.Location;
 
-@XmlRootElement(name = "location")
+@XmlRootElement(name = DefaultLocation.TAG)
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class DefaultLocation implements Location {
+	
+	public static final String TAG = "location";
 
 	@XmlAttribute(name = "host")
 	private String host = null;

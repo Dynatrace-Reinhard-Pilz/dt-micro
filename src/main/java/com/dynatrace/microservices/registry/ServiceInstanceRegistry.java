@@ -10,15 +10,14 @@ import com.dynatrace.microservices.infrastructure.ServiceInstance;
 
 public class ServiceInstanceRegistry {
 	
+	@SuppressWarnings("unused")
 	private static final Log LOGGER = LogFactory.getLog(ServiceInstanceRegistry.class.getName());
 
 	private final RegistryByServiceId registry = new RegistryByServiceId();
 	
-	public void register(ServiceInstance instance) {
+	public boolean register(ServiceInstance instance) {
 		Objects.requireNonNull(instance);
-		registry.register(instance);
-		LOGGER.info(instance + " registered");
-//		registry.dump(0);
+		return registry.register(instance);
 	}
 	
 	public ServiceInstance unregister(String instanceId) {

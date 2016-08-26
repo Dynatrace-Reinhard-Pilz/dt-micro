@@ -3,6 +3,7 @@ package com.dynatrace.microservices.remoting.common;
 import org.springframework.web.client.RestClientException;
 
 import com.dynatrace.microservices.remoting.ExceptionHandler;
+import com.dynatrace.microservices.rest.common.Status;
 
 public class LocalRemoteCommonService implements CommonService {
 
@@ -22,5 +23,15 @@ public class LocalRemoteCommonService implements CommonService {
 			exceptionHandler.handle(e);
 			return false;
 		}
+	}
+
+	@Override
+	public String ping() {
+		return null;
+	}
+
+	@Override
+	public Status getStatus() {
+		return null;
 	}
 }

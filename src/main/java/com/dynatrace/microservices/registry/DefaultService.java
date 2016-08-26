@@ -11,9 +11,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.dynatrace.microservices.infrastructure.Service;
 import com.dynatrace.microservices.infrastructure.Version;
 
-@XmlRootElement(name = "service")
+@XmlRootElement(name = DefaultService.TAG)
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class DefaultService implements Service {
+	
+	public static final String TAG = "service";
 
 	@XmlAttribute(name = "serviceId")
 	private String serviceId = null;

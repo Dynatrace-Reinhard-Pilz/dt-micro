@@ -1,0 +1,1 @@
+insert into quote values (1, 'TEST')

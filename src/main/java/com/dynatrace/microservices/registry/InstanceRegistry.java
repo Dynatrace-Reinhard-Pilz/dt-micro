@@ -6,7 +6,7 @@ import com.dynatrace.microservices.infrastructure.ServiceInstance;
 
 public interface InstanceRegistry<K> {
 
-	void register(ServiceInstance instance);
+	boolean register(ServiceInstance instance);
 	ServiceInstance unregister(ServiceInstance instance);
 	ServiceInstance lookup(ServiceQuery query);
 	Collection<ServiceInstance> getInstances();

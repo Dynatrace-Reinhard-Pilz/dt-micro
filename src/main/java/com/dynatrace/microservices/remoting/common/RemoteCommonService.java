@@ -20,7 +20,7 @@ public class RemoteCommonService {
 	}
 
 	public boolean shutdown() throws RestClientException {
-		ResponseEntity<String> response = REST.getForEntity(serviceInstance.createURL("shutdown").toString(), String.class);
+		ResponseEntity<String> response = REST.getForEntity(serviceInstance.createURL("shutdown", false).toString(), String.class);
 		return "true".equals(response.getBody());
 	}
 }

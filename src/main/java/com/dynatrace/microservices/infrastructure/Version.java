@@ -25,6 +25,31 @@ public final class Version implements Comparable<Version> {
 		
 	}
 	
+	public static boolean equals(Version a, Version b) {
+		if (a == b) {
+			return true;
+		}
+		if ((a == null) && (b != null)) {
+			return false;
+		}
+		if ((a != null) && (b == null)) {
+			return false;
+		}
+		if (a.major != b.major) {
+			return false;
+		}
+		if (a.minor != b.minor) {
+			return false;
+		}
+		if (a.revision != b.revision) {
+			return false;
+		}
+		if (a.build != b.build) {
+			return false;
+		}
+		return true;
+	}
+	
 	public Version(int major, int minor, int revision, int build) {
 		this.major = major;
 		this.minor = minor;
