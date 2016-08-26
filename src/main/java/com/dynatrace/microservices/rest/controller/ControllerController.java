@@ -1,7 +1,6 @@
 package com.dynatrace.microservices.rest.controller;
 
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -11,8 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,31 +29,31 @@ public class ControllerController implements ControllerService {
 	private static final Log LOGGER = LogFactory.getLog(ControllerController.class.getName());
 	
 	private @Autowired HttpServletRequest request;
-	private @Autowired JdbcTemplate jdbcTemplate;
-	
-	private static class Quote {
-		
-		public int id = 0;
-		public String name = null;
-		
-		public Quote(int id, String name) {
-			this.id = id;
-			this.name = name;
-		}
-
-		@Override
-		public String toString() {
-			return id + " - " + name;
-		}
-	}
-	
-	@GetMapping(path = "/test")
-	public String test() {
-		jdbcTemplate.query(
-                "SELECT id, name FROM quote", (rs, rowNum) -> new Quote(rs.getInt("id"), rs.getString("name"))
-        ).forEach(quote -> LOGGER.info(quote.toString()));
-		return UUID.randomUUID().toString();
-	}
+//	private @Autowired JdbcTemplate jdbcTemplate;
+//	
+//	private static class Quote {
+//		
+//		public int id = 0;
+//		public String name = null;
+//		
+//		public Quote(int id, String name) {
+//			this.id = id;
+//			this.name = name;
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return id + " - " + name;
+//		}
+//	}
+//	
+//	@GetMapping(path = "/test")
+//	public String test() {
+//		jdbcTemplate.query(
+//                "SELECT id, name FROM quote", (rs, rowNum) -> new Quote(rs.getInt("id"), rs.getString("name"))
+//        ).forEach(quote -> LOGGER.info(quote.toString()));
+//		return UUID.randomUUID().toString();
+//	}
 	
 	@Override
 	public ServiceInstance launch(@RequestBody LaunchConfig launchConfig) {
