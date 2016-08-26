@@ -1,5 +1,7 @@
 package com.dynatrace.microservices.rest.registry;
 
+import java.util.Objects;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +35,10 @@ public class RegistryController implements RegistryService, ExceptionHandler {
 	}
 	
 	@Override
-	public ServiceInstance register(ServiceInstance instance, boolean correct) {
+	public ServiceInstance register(@RequestBody ServiceInstance instance, boolean correct) {
+		Objects.requireNonNull(instance);
 		Location location = instance.getLocation();
+		Objects.requireNonNull(location);
 		instance.setLocation(
 			new DefaultLocation(
 				SimpleHostNameResolver.INSTANCE.getHostName(request),

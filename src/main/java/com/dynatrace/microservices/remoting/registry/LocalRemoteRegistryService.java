@@ -32,8 +32,6 @@ public class LocalRemoteRegistryService implements RegistryService, ExceptionHan
 	
 	@Override
 	public ServiceInstance register(ServiceInstance instance, boolean correct) {
-//		RegistryService registryService = RemotingClient.create(RegistryService.class, service.getServiceInstance());
-//		registryService.register(instance, correct);
 		try {
 			return service.register(instance, correct);
 		} catch (RestClientException e) {

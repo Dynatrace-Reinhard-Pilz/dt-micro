@@ -2,10 +2,9 @@ package com.dynatrace.microservices.remoting.common;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.dynatrace.microservices.remoting.RemotingClient;
 import com.dynatrace.microservices.rest.common.Status;
 
-public interface CommonService extends RemotingClient {
+public interface CommonService {
 
 	@GetMapping(path = "/shutdown")
 	boolean shutdown();

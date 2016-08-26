@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.dynatrace.microservices.infrastructure.Location;
 import com.dynatrace.microservices.infrastructure.ServiceInstance;
 import com.dynatrace.microservices.registry.DefaultServiceInstance;
 import com.dynatrace.microservices.registry.ServiceQuery;
@@ -48,6 +49,9 @@ public class RemoteRegistryService {
 	}
 	
 	public ServiceInstance register(ServiceInstance instance) {
+		Objects.requireNonNull(instance);
+		Location location = instance.getLocation();
+		Objects.requireNonNull(location);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<ServiceInstance> entity = new HttpEntity<ServiceInstance>(instance, headers);
