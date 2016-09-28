@@ -35,6 +35,11 @@ public class ServiceApplication {
 		ctx = SpringApplication.run(ServiceApplication.class, args);
 	}
 	
+	public static javax.sql.DataSource getDataSource() {
+		return ctx.getBean(javax.sql.DataSource.class);
+	}
+	
+	
 	public static void setRegistryService(RegistryService service) {
 		Objects.requireNonNull(service);
 		registryService.set(service);

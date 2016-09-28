@@ -46,5 +46,10 @@ public class DefaultServiceQuery implements ServiceQuery {
 	public void setVersion(Version version) {
 		this.version = version;
 	}
+	
+	@Override
+	public String toString() {
+		return serviceId + "_" + version;
+	}
 
 }

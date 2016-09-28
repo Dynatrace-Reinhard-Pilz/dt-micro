@@ -23,4 +23,9 @@ public class RemoteCommonService {
 		ResponseEntity<String> response = REST.getForEntity(serviceInstance.createURL("shutdown", false).toString(), String.class);
 		return "true".equals(response.getBody());
 	}
+	
+	public String getQuote() throws RestClientException {
+		ResponseEntity<String> response = REST.getForEntity(serviceInstance.createURL("nplusone", false).toString(), String.class);
+		return response.getBody();
+	}
 }

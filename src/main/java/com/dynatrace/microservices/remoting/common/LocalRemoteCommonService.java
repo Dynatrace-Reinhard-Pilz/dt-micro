@@ -34,4 +34,15 @@ public class LocalRemoteCommonService implements CommonService {
 	public Status getStatus() {
 		return null;
 	}
+	
+	@Override
+	public String getQuote() {
+		try {
+			return service.getQuote();
+		} catch (RestClientException e) {
+			exceptionHandler.handle(e);
+			return Boolean.FALSE.toString();
+		}
+	}
+	
 }

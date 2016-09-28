@@ -2,6 +2,7 @@ package com.dynatrace.microservices.registry;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;
@@ -29,14 +30,14 @@ public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>>
 	}
 	
 	@Override
-	public ServiceInstance lookup(ServiceQuery query) {
+	public Collection<ServiceInstance> lookup(ServiceQuery query) {
 		Objects.requireNonNull(query);
 		V value = null;
 		synchronized (entries) {
 			K key = evaluateKey(query);
 			if (key == null) {
 				if (entries.isEmpty()) {
-					return null;
+					return Collections.emptyList();
 				}
 				key = entries.keySet().iterator().next();
 			}
@@ -45,7 +46,7 @@ public abstract class AbstractInstanceRegistry<K, V extends InstanceRegistry<?>>
 			}
 		}
 		if (value == null) {
-			return null;
+			return Collections.emptyList();
 		}
 		return value.lookup(query);
 	}

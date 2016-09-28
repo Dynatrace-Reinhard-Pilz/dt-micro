@@ -1,5 +1,6 @@
 package com.dynatrace.microservices.rest.registry;
 
+import java.util.Collection;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,8 +31,16 @@ public class RegistryController implements RegistryService, ExceptionHandler {
 	private @Autowired HttpServletRequest request;
 
 	@Override
-	public ServiceInstance lookup(@RequestBody ServiceQuery query) {
-		return ServiceApplication.getServiceRegistry().lookup(query);
+	public ServiceInstanceCollection lookup(@RequestBody ServiceQuery query) {
+		ServiceInstanceCollection instanceCollection = new ServiceInstanceCollection();
+		Collection<ServiceInstance> instances = ServiceApplication.getServiceRegistry().lookup(query);
+		for (ServiceInstance instance : instances) {
+			if (instance == null) {
+				continue;
+			}
+			instanceCollection.add(instance);
+		}
+		return instanceCollection;
 	}
 	
 	@Override

@@ -36,14 +36,14 @@ public class RemoteRegistryService {
 		return serviceInstance;
 	}
 
-	public ServiceInstance lookup(ServiceQuery query) throws RestClientException {
+	public ServiceInstanceCollection lookup(ServiceQuery query) throws RestClientException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<ServiceQuery> entity = new HttpEntity<ServiceQuery>(query, headers);
-		ResponseEntity<DefaultServiceInstance> responseInstance = REST.postForEntity(
+		ResponseEntity<ServiceInstanceCollection> responseInstance = REST.postForEntity(
 			serviceInstance.createURL("lookup", false).toString(),
 			entity,
-			DefaultServiceInstance.class
+			ServiceInstanceCollection.class
 		);
 		return responseInstance.getBody();
 	}

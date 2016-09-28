@@ -14,6 +14,8 @@ public interface CommonService {
 	
 	@GetMapping(path = "/status")
 	public Status getStatus();
-
+	
+	@GetMapping(path = "/quote")
+	public String getQuote();
 	
 }

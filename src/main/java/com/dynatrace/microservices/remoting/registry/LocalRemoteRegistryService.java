@@ -21,7 +21,7 @@ public class LocalRemoteRegistryService implements RegistryService, ExceptionHan
 	}
 
 	@Override
-	public ServiceInstance lookup(ServiceQuery query) {
+	public ServiceInstanceCollection lookup(ServiceQuery query) {
 		try {
 			return service.lookup(query);
 		} catch (RestClientException e) {

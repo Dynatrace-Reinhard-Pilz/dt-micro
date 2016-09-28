@@ -98,6 +98,8 @@ public final class ServiceLauncher implements ExceptionHandler {
 		ArrayList<String> parts = new ArrayList<String>();
 //		parts.add("\"" + OS.javaExec().getAbsolutePath() + "\"");
 		parts.add(OS.javaExec().getAbsolutePath());
+//		parts.add("-Xms100M");
+//		parts.add("-Xmx100M");
 		parts.addAll(classPath.toJvmArg());
 		parts.addAll(inputArguments.toJvmArg());
 		parts.addAll(commandLine.toJvmArg());

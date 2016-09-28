@@ -13,7 +13,7 @@ import com.dynatrace.microservices.rest.registry.ServiceInstanceCollection;
 public interface RegistryService {
 
 	@PostMapping(path = "/lookup", consumes="application/json", produces="application/json")
-	ServiceInstance lookup(@RequestBody ServiceQuery query);
+	ServiceInstanceCollection lookup(@RequestBody ServiceQuery query);
 	
 	@PostMapping(path = "/register", consumes="application/json", produces="application/json")
 	ServiceInstance register(@RequestBody ServiceInstance instance, boolean correct);

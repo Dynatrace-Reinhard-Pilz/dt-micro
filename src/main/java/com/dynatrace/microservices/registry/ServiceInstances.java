@@ -131,8 +131,10 @@ public class ServiceInstances extends AbstractInstanceRegistry<String, ServiceIn
 		}
 
 		@Override
-		public ServiceInstance lookup(ServiceQuery query) {
-			return instance;
+		public Collection<ServiceInstance> lookup(ServiceQuery query) {
+			ArrayList<ServiceInstance> result = new ArrayList<ServiceInstance>();
+			result.add(instance);
+			return result;
 		}
 
 		@Override

@@ -8,7 +8,7 @@ public interface InstanceRegistry<K> {
 
 	boolean register(ServiceInstance instance);
 	ServiceInstance unregister(ServiceInstance instance);
-	ServiceInstance lookup(ServiceQuery query);
+	Collection<ServiceInstance> lookup(ServiceQuery query);
 	Collection<ServiceInstance> getInstances();
 	ServiceInstance unregister(String instanceId);
 	ServiceInstance get(String instanceId);

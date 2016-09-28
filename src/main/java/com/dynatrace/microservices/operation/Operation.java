@@ -63,7 +63,7 @@ public class Operation implements ExceptionHandler {
 				executeLocal(operation);
 			} else {
 				DefaultServiceQuery query = new DefaultServiceQuery(serviceId, Version.DEFAULT);
-				ServiceInstance serviceInstance = ServiceApplication.getRegistryService().lookup(query);
+				ServiceInstance serviceInstance = ServiceApplication.getRegistryService().lookup(query).random();
 				RemoteGenericService remoteOperationService = new RemoteGenericService(serviceInstance);
 				LocalRemoteGenericService operationService = new LocalRemoteGenericService(remoteOperationService, this);
 				response.add(operationService.process(operation));

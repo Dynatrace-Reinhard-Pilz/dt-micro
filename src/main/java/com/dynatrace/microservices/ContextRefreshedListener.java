@@ -98,6 +98,7 @@ public class ContextRefreshedListener implements ApplicationListener<Application
 				ioe.printStackTrace(System.err);
 			}
 		} else {
+			LOGGER.info("Registry Location: " + registryLocation);
 			Service localRegistryService = new DefaultService(DefaultServices.registry.name(), Version.DEFAULT);
 			registryServiceInstance = new DefaultServiceInstance(
 					UUID.randomUUID().toString(),

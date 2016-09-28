@@ -1,0 +1,5 @@
+{
+	"instances": [
+		"docs", "doc-proc", "doc-trans", "doc-sign", "doc-ship", "doc-enc"
+	]
+}
